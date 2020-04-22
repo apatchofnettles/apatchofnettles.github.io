@@ -6,11 +6,11 @@ We will find something to say in due course.
 
 Some sound links just sitting here.
 
-### Nettles
+### Nettles - collected
 [scattergun compositional privisions](https://apatchofnettles.github.io/nettles/index.html)
 
-### Salamand'r
+### Salamand'r - out of respect
 [deconstruction as reconstruction](https://apatchofnettles.github.io/salamandr/index.html)
 
-### Disquiet Junto
+### Disquiet Junto - ongoing challenge
 [the proto-typic player](https://disquietjuntoradio.github.io/DisquietJuntoRadio/)
