@@ -21,6 +21,7 @@ function SCoperator() {
 	this.mediaCheck = function (self) { // set limit for delaying media launch
 		return (self.tracks > 1);
 	};
+	this.rolling = false;
 };
 
 
