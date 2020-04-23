@@ -14,3 +14,8 @@ Some sound links just sitting here.
 
 ### Disquiet Junto - ongoing challenge
 [the proto-typic player](https://disquietjuntoradio.github.io/DisquietJuntoRadio/)
+
+DIY:
+
+### Shuffle play 'client side radio' - for adaptation
+[source code](https://github.com/DisquietJuntoRadio/DisquietJuntoRadio)
