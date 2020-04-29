@@ -63,14 +63,14 @@ SCoperator.prototype.actOnMedia = function (self, chooseFrom) {
 	if (livePlayer
 		//&& (livePlayer.prop("readyState") > 0) 
 		&&
-		(livePlayer.prop("currentSrc") || (livePlayer.prop("readyState") > 0) || this.rolling == true) &&
+		(livePlayer.prop("currentSrc") || (livePlayer.prop("readyState") > 0) || self.rolling == true) &&
 		!livePlayer.prop("ended")) {
 		return false;
 	}
 
 	var chosen = Math.floor(Math.random() * chooseFrom);
 	var chosentile = $(".sound-tile:eq(" + chosen + ")");
-	this.rolling == false;
+	self.rolling = false;
 	if (chosentile.position() == null) {
 		return false;
 	}

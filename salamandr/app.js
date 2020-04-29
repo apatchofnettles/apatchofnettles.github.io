@@ -70,7 +70,7 @@ SCoperator.prototype.actOnMedia = function (self, chooseFrom) {
 
 	var chosen = Math.floor(Math.random() * chooseFrom);
 	var chosentile = $(".sound-tile:eq(" + chosen + ")");
-	self.rolling == false;
+	self.rolling = false;
 	if (chosentile.position() == null) {
 		return false;
 	}
