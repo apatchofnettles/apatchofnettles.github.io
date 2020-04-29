@@ -12,7 +12,7 @@ Salamand'r - out of respect
 ### [deconstruction as reconstruction](https://apatchofnettles.github.io/salamandr/index.html)
 
 Number Dreams - to absent friends
-### [mists of epiphany](https://apatchofnettles.github.io/salamandr/index.html)
+### [mists of epiphany](https://apatchofnettles.github.io/numbers/index.html)
 
 Disquiet Junto - ongoing challenge
 ### [the proto-typic player](https://disquietjuntoradio.github.io/DisquietJuntoRadio/)
