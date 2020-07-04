@@ -65,17 +65,17 @@ SCoperator.prototype.getThings = function (requestedThings) {
 		thingsToGet = requestedThings.auto_paginate;
 		console.log(
 			"chasing more pages of "
-			+requestedThings.from+" : "+requestedThings.things
+			+ requestedThings.from + " : " + requestedThings.things
 			+ " for " + requestedThings.thendo.name
-			);
+		);
 	} else {
 		console.log(
 			this.getThings.caller.name + " is getting "
-			+requestedThings.things
-			+(requestedThings.from?" from "+requestedThings.from:"")
-			+(requestedThings.paged?" with paging":"")
+			+ requestedThings.things
+			+ (requestedThings.from ? " from " + requestedThings.from : "")
+			+ (requestedThings.paged ? " with paging" : "")
 			+ " for " + requestedThings.thendo.name
-			);
+		);
 		thingsToGet = self.mainAPI;
 		if (requestedThings.from !== "") {
 			thingsToGet += requestedThings.from + "/";
@@ -93,27 +93,27 @@ SCoperator.prototype.getThings = function (requestedThings) {
 	)
 		.done(function (data) {
 			requestedThings.thendo(self, data);
-			if(requestedThings.paged) {
-				if(!("next_href" in data) && (data.collection.length >= self.pageSize)) {
+			if (requestedThings.paged) {
+				if (!("next_href" in data) && (data.collection.length >= self.pageSize)) {
 					offset = requestedThings.auto_paginate.match(/\&offset\=[0-9]*/g).pop();
-					console.log("Paging is manual from "+offset);
-					requestedThings.auto_paginate = requestedThings.auto_paginate.replace(offset,"");
-					numeric = parseInt(offset.match(/[0-9]{1,}/g).pop());	
+					console.log("Paging is manual from " + offset);
+					requestedThings.auto_paginate = requestedThings.auto_paginate.replace(offset, "");
+					numeric = parseInt(offset.match(/[0-9]{1,}/g).pop());
 					numeric = numeric + self.pageSize;
-					requestedThings.auto_paginate += "&offset=" +numeric;
+					requestedThings.auto_paginate += "&offset=" + numeric;
 
 				} else {
-					console.log("Ending paging of "+requestedThings.things);
+					console.log("Ending paging of " + requestedThings.things);
 					requestedThings.auto_paginate = null;
 				}
 				if (("next_href" in data) && data.next_href) {
 					console.log("Paging is explicit");
 					requestedThings.auto_paginate = self.corsProxy + data.next_href + "&client_id=" + self.client_id;
 				}
-				if(requestedThings.auto_paginate) {
+				if (requestedThings.auto_paginate) {
 					self.getThings(requestedThings);
 				}
-		}
+			}
 		})
 		.fail(function (jqxhr, textstatus, errorthrown) {
 			self.stayAlert("SC " + requestedThings.things + " " + textstatus + " " + errorthrown);
@@ -130,7 +130,7 @@ SCoperator.prototype.rackArtist = function sitegetter(sendTo) {
 	toGet.thendo = function cartopen(self, data) {
 		sendTo(self, data.collection, self.popTrack);
 		self.tryAutoPlay();
-	};	
+	};
 	self.carts++;
 	SCrunning.getThings(toGet);
 }
@@ -216,7 +216,8 @@ SCoperator.prototype.getClient = function (clientaction) {
 		// We could get a new/fresh each time, but then need to use API2 per below
 		// V.2 is 'public' but it needs CORS proxy :(
 		self.initialising = $.get(
-			"https://a-v2.sndcdn.com/assets/48-2160c10a-3.js", {}
+			//"https://a-v2.sndcdn.com/assets/48-2160c10a-3.js", {}
+			"https://a-v2.sndcdn.com/assets/46-285b9963-3.js", {}
 		)
 			.done(function (data) {
 				got_id = data.match(new RegExp("client_application_id:.....,client_id:(.*),env:"))[1];
