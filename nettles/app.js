@@ -76,7 +76,7 @@ SCoperator.prototype.actOnMedia = function (self, chooseFrom) {
 	}
 
 	if (self.isPlayable(chosentile[0])) {
-		self.spoolTrack(chosentile[0]); console.log("scrollingTo"+chosentile[0].getAttribute('data-blurb'));
+		self.spoolTrack(chosentile[0]);
 		$("#TrackList").animate({
 			scrollTop: $("#TrackList").scrollTop() + chosentile.position().top - ($("#TrackList").height() / 2) - (chosentile.height() * 3.5)
 		}, 4000);

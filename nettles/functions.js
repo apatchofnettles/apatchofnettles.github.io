@@ -16,7 +16,7 @@ function SCoperator() {
 	this.tracks = 0;
 	this.carts = 0;
 
-	this.pageSize = 45;
+	this.pageSize = 8;
 	this.mediaDelay = 3000; // set time for delaying media launch
 	this.mediaCheck = function (self) { // set limit for delaying media launch
 		return (self.tracks > 1);
@@ -51,6 +51,7 @@ SCoperator.prototype.desiredThings = function () {
 		filter: "",
 		paged: true,
 		auto_paginate: null,
+		page_size: null,
 		thendo: null
 	}
 }
@@ -62,7 +63,19 @@ SCoperator.prototype.getThings = function (requestedThings) {
 
 	if (requestedThings.auto_paginate !== null) {
 		thingsToGet = requestedThings.auto_paginate;
+		console.log(
+			"chasing more pages of "
+			+requestedThings.from+" : "+requestedThings.things
+			+ " for " + requestedThings.thendo.name
+			);
 	} else {
+		console.log(
+			this.getThings.caller.name + " is getting "
+			+requestedThings.things
+			+(requestedThings.from?" from "+requestedThings.from:"")
+			+(requestedThings.paged?" with paging":"")
+			+ " for " + requestedThings.thendo.name
+			);
 		thingsToGet = self.mainAPI;
 		if (requestedThings.from !== "") {
 			thingsToGet += requestedThings.from + "/";
@@ -76,15 +89,31 @@ SCoperator.prototype.getThings = function (requestedThings) {
 		} //settings;
 	}
 	self.thingGetting = $.get(
-			self.corsProxy + thingsToGet, {}
-		)
+		self.corsProxy + thingsToGet, {}
+	)
 		.done(function (data) {
 			requestedThings.thendo(self, data);
-			if (("next_href" in data) && data.next_href && requestedThings.paged) {
-				requestedThings.auto_paginate = self.corsProxy + data.next_href + "&client_id=" + self.client_id;
-				self.getThings(requestedThings);
-			}
-			requestedThings.auto_paginate = null;
+			if(requestedThings.paged) {
+				if(!("next_href" in data) && (data.collection.length >= self.pageSize)) {
+					offset = requestedThings.auto_paginate.match(/\&offset\=[0-9]*/g).pop();
+					console.log("Paging is manual from "+offset);
+					requestedThings.auto_paginate = requestedThings.auto_paginate.replace(offset,"");
+					numeric = parseInt(offset.match(/[0-9]{1,}/g).pop());	
+					numeric = numeric + self.pageSize;
+					requestedThings.auto_paginate += "&offset=" +numeric;
+
+				} else {
+					console.log("Ending paging of "+requestedThings.things);
+					requestedThings.auto_paginate = null;
+				}
+				if (("next_href" in data) && data.next_href) {
+					console.log("Paging is explicit");
+					requestedThings.auto_paginate = self.corsProxy + data.next_href + "&client_id=" + self.client_id;
+				}
+				if(requestedThings.auto_paginate) {
+					self.getThings(requestedThings);
+				}
+		}
 		})
 		.fail(function (jqxhr, textstatus, errorthrown) {
 			self.stayAlert("SC " + requestedThings.things + " " + textstatus + " " + errorthrown);
@@ -92,21 +121,21 @@ SCoperator.prototype.getThings = function (requestedThings) {
 };
 
 
-SCoperator.prototype.rackArtist = function (sendTo) {
+SCoperator.prototype.rackArtist = function sitegetter(sendTo) {
 	var self = this;
 	var toGet;
 	toGet = self.desiredThings();
 	toGet.from = "users/" + self.artist_id;
 	toGet.things = "tracks";
-	toGet.thendo = function (self, data) {
-		self.carts++;
+	toGet.thendo = function cartopen(self, data) {
 		sendTo(self, data.collection, self.popTrack);
 		self.tryAutoPlay();
-	};
+	};	
+	self.carts++;
 	SCrunning.getThings(toGet);
 }
 
-SCoperator.prototype.rackCarts = function (sendTo) {
+SCoperator.prototype.rackCarts = function cartmaker(sendTo) {
 	var self = this;
 	var toGet;
 	toGet = self.desiredThings();
@@ -126,7 +155,7 @@ SCoperator.prototype.rackCarts = function (sendTo) {
 	SCrunning.getThings(toGet);
 }
 
-SCoperator.prototype.rackTracks = function (self, data, addit) {
+SCoperator.prototype.rackTracks = function trackracker(self, data, addit) {
 	var gotTracks = data;
 	var idSet;
 	var idCount = 0;
@@ -148,7 +177,7 @@ SCoperator.prototype.rackTracks = function (self, data, addit) {
 		toGet.things = "tracks";
 		toGet.filter = "ids=" + idSet;
 		toGet.paged = false;
-		toGet.thendo = function (self, data) {
+		toGet.thendo = function trackaction(self, data) {
 			for (var j = 0; j < data.length; j++) {
 				addit(self, data[j]);
 			}
@@ -164,8 +193,8 @@ SCoperator.prototype.resolve = function (resource, dowith) {
 	self.resolved = null;
 
 	self.resolving = $.get(
-			self.corsProxy + toResolve, {}
-		)
+		self.corsProxy + toResolve, {}
+	)
 		.done(function (data) {
 			dowith(self, data);
 		})
@@ -187,8 +216,8 @@ SCoperator.prototype.getClient = function (clientaction) {
 		// We could get a new/fresh each time, but then need to use API2 per below
 		// V.2 is 'public' but it needs CORS proxy :(
 		self.initialising = $.get(
-				"https://a-v2.sndcdn.com/assets/48-2160c10a-3.js", {}
-			)
+			"https://a-v2.sndcdn.com/assets/48-2160c10a-3.js", {}
+		)
 			.done(function (data) {
 				got_id = data.match(new RegExp("client_application_id:.....,client_id:(.*),env:"))[1];
 				got_id = got_id.replace(/"/g, "");
