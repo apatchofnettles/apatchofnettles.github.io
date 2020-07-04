@@ -127,7 +127,7 @@ SCoperator.prototype.rackArtist = function sitegetter(sendTo) {
 	toGet = self.desiredThings();
 	toGet.from = "users/" + self.artist_id;
 	toGet.things = "tracks";
-	toGet.thendo = function cartopen(self, data) {
+	toGet.thendo = function artistscart(self, data) {
 		sendTo(self, data.collection, self.popTrack);
 		self.tryAutoPlay();
 	};
@@ -142,7 +142,7 @@ SCoperator.prototype.rackCarts = function cartmaker(sendTo) {
 	toGet.from = "users/" + self.artist_id;
 	toGet.things = "playlists";
 	toGet.filter = "representation=id";
-	toGet.thendo = function (self, data) {
+	toGet.thendo = function listedcart(self, data) {
 		var playlists = data.collection;
 		for (var i = 0; i < playlists.length; i++) {
 			if ((self.matchPlaylists == null) || (self.matchPlaylists.indexOf(playlists[i].permalink_url) > -1)) {
