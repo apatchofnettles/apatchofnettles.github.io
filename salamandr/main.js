@@ -17,19 +17,19 @@ $(function () {
 	// SoundCloud operator
 
 	SCrunning.artist = "yellow-salamandr-4";
-	
-	SCrunning.matchPlaylists = 
-	[
-	"https://soundcloud.com/yellow-salamandr-4/sets/yellow-salamandr-entire",
-	"https://soundcloud.com/yellow-salamandr-4/sets/ys4"
-	];
+
+	SCrunning.matchPlaylists =
+		[
+			"https://soundcloud.com/yellow-salamandr-4/sets/yellow-salamandr-entire",
+			"https://soundcloud.com/yellow-salamandr-4/sets/ys4"
+		];
 
 	SCrunning.getClient(function () {
-		SCrunning.getArtist( function getItems() {
+		SCrunning.getArtist(function getItems() {
 			// get all artist 'TRACK' entries:
-			SCrunning.rackArtist(self.rackTracks);
+			SCrunning.rackArtist(SCrunning.rackTracks);
 			// get optionally filtered playlists:
-			SCrunning.rackCarts(self.rackTracks);
+			SCrunning.rackCarts(SCrunning.rackTracks);
 		});
 	});
 
