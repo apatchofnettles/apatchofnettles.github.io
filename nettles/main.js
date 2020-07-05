@@ -11,7 +11,7 @@ $(function () {
 	SCrunning = null;
 	SCrunning = new SCoperator();
 	SCrunning.configAPI("V1");
-	SCrunning.tryAutoPlay = function () {}
+	SCrunning.mediaLaunch = false;
 
 
 	////////////////////////////////////////////////////////////////
@@ -29,26 +29,15 @@ $(function () {
 		"pangaeanpermafaction",
 		"user-512294964"
 		];
-		var triedLaunch = false;
+		
 		for(var i=0; i < allPages.length; i++) {
 			if ( i == allPages.length-1 ) {
-				SCrunning.tryAutoPlay = function () {
-					var self = this;
-					setTimeout(function () {
-						if (self.mediaCheck(self)) {
-							self.actOnMedia(self, $(".sound-tile").length);
-						}
-					}, self.mediaDelay);
-				}
+				SCrunning.mediaLaunch = true;
 			}
 			SCrunning.artist = allPages[i];
-			SCrunning.resolve("https://soundcloud.com/" + SCrunning.artist, function (self, resolved) {
-				self.artist_id = resolved.id;
-				self.artist_data = {
-					avatar: resolved.avatar_url
-				};
+			SCrunning.getArtist( function getItems() {
 				// get all artist 'TRACK' entries:
-				SCrunning.rackArtist(self.rackTracks);
+				SCrunning.rackArtist(SCrunning.rackTracks);
 				// get optionally filtered playlists:
 				// SCrunning.rackCarts(self.rackTracks);
 			});

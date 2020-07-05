@@ -17,6 +17,7 @@ function SCoperator() {
 	this.carts = 0;
 
 	this.pageSize = 8;
+	this.mediaLaunch = true;
 	this.mediaDelay = 3000; // set time for delaying media launch
 	this.mediaCheck = function (self) { // set limit for delaying media launch
 		return (self.tracks > 1);
@@ -51,7 +52,6 @@ SCoperator.prototype.desiredThings = function () {
 		filter: "",
 		paged: true,
 		auto_paginate: null,
-		page_size: null,
 		thendo: null
 	}
 }
@@ -120,6 +120,17 @@ SCoperator.prototype.getThings = function (requestedThings) {
 		});
 };
 
+
+SCoperator.prototype.getArtist = function coregetter(actionArtist) {
+	var self = this;
+	self.resolve("https://soundcloud.com/" + self.artist, function (self, resolved) {
+				self.artist_id = resolved.id;
+				self.artist_data = {
+					avatar: resolved.avatar_url
+				};				
+				actionArtist();
+			});
+}
 
 SCoperator.prototype.rackArtist = function sitegetter(sendTo) {
 	var self = this;

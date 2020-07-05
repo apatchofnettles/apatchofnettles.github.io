@@ -34,22 +34,11 @@ $(function () {
 		];
 		
 		for(var i=0; i < allPages.length; i++) {
-			if ( i == allPages.length-1) {
-				SCrunning.tryAutoPlay = function () {
-					var self = this;
-					setTimeout(function () {
-						if (self.mediaCheck(self)) {
-							self.actOnMedia(self, $(".sound-tile").length);
-						}
-					}, self.mediaDelay);
-				}
+			if ( i == allPages.length-1 ) {
+				SCrunning.mediaLaunch = true;
 			}
 			SCrunning.artist = allPages[i];
-			SCrunning.resolve("https://soundcloud.com/" + SCrunning.artist, function (self, resolved) {
-				self.artist_id = resolved.id;
-				self.artist_data = {
-					avatar: resolved.avatar_url
-				};
+			SCrunning.getArtist( function getItems() {
 				// get all artist 'TRACK' entries:
 				SCrunning.rackArtist(self.rackTracks);
 				// get optionally filtered playlists:
