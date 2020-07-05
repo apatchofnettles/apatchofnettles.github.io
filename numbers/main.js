@@ -11,7 +11,7 @@ $(function () {
 	SCrunning = null;
 	SCrunning = new SCoperator();
 	SCrunning.configAPI("V1");
-	SCrunning.tryAutoPlay = function () {}
+	SCrunning.mediaLaunch = false;
 
 
 	////////////////////////////////////////////////////////////////
@@ -40,7 +40,7 @@ $(function () {
 			SCrunning.artist = allPages[i];
 			SCrunning.getArtist( function getItems() {
 				// get all artist 'TRACK' entries:
-				SCrunning.rackArtist(self.rackTracks);
+				SCrunning.rackArtist(SCrunning.rackTracks);
 				// get optionally filtered playlists:
 				// SCrunning.rackCarts(self.rackTracks);
 			});
