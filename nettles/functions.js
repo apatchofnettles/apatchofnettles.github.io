@@ -123,13 +123,28 @@ SCoperator.prototype.getThings = function (requestedThings) {
 
 SCoperator.prototype.getArtist = function coregetter(actionArtist) {
 	var self = this;
-	self.resolve("https://soundcloud.com/" + self.artist, function (self, resolved) {
-				self.artist_id = resolved.id;
-				self.artist_data = {
-					avatar: resolved.avatar_url
-				};				
-				actionArtist();
-			});
+	var actionFor = self.artist;
+	self.resolve("https://soundcloud.com/" + actionFor, function (self, resolved) {
+		self.artist_id = resolved.id;
+		self.artist_data = {
+			avatar: resolved.avatar_url
+		};
+		actionArtist(actionFor);
+	});
+}
+
+
+SCoperator.prototype.searchExternals = function (artistSite) {
+	var self = this;
+	var queryString = window.location.search;
+	var external = queryString.match(/(?:\?|\&)(?:playlist)\=([^&]+)/g);
+	if (external) {
+		external = external.pop().match(/\=.*/g).pop().replace("=", "");
+		self.matchPlaylists = (self.matchPlaylists == null) ? [] : self.matchPlaylists;
+		self.matchPlaylists.push("https://soundcloud.com/" + artistSite + "/sets/" + external);
+		return true;
+	}
+	return false;
 }
 
 SCoperator.prototype.rackArtist = function sitegetter(sendTo) {

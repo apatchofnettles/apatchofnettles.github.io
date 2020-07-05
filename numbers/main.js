@@ -38,7 +38,7 @@ $(function () {
 				SCrunning.mediaLaunch = true;
 			}
 			SCrunning.artist = allPages[i];
-			SCrunning.getArtist( function getItems() {
+			SCrunning.getArtist( function getItems(artist) {
 				// get all artist 'TRACK' entries:
 				SCrunning.rackArtist(SCrunning.rackTracks);
 				// get optionally filtered playlists:
