@@ -147,6 +147,9 @@ SCoperator.prototype.searchExternals = function (artistSite) {
 	return false;
 }
 
+///////////////////////////
+// Will push forward into "sendTo()" all tracks by artist
+///////////////////////////
 SCoperator.prototype.rackArtist = function sitegetter(sendTo) {
 	var self = this;
 	var toGet;
@@ -161,6 +164,10 @@ SCoperator.prototype.rackArtist = function sitegetter(sendTo) {
 	SCrunning.getThings(toGet);
 }
 
+///////////////////////////
+// Will push forward into "sendTo()" all tracks of all playlists by artist, 
+// prone to self.matchPlaylists as filter
+///////////////////////////
 SCoperator.prototype.rackCarts = function cartmaker(sendTo) {
 	var self = this;
 	var toGet;
@@ -181,6 +188,11 @@ SCoperator.prototype.rackCarts = function cartmaker(sendTo) {
 	SCrunning.getThings(toGet);
 }
 
+///////////////////////////
+// Will push forward into "addit()" all meta of tracks, 
+// individually from list of track ids in "data"
+// via auto paging requests through the id list
+///////////////////////////
 SCoperator.prototype.rackTracks = function trackracker(self, data, addit) {
 	var gotTracks = data;
 	var idSet;
