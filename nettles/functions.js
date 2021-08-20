@@ -5,7 +5,7 @@
 //////////////////////////////////////////////////////////////////
 
 function SCoperator() {
-	this.configAPI("V1");
+	this.configAPI("V2");
 
 	this.artist = "";
 	this.client_id = "";
