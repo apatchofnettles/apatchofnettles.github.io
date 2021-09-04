@@ -5,7 +5,7 @@
 //////////////////////////////////////////////////////////////////
 
 function SCoperator() {
-	this.configAPI("V1");
+	this.configAPI("V2");
 
 	this.artist = "";
 	this.client_id = "";
@@ -38,12 +38,20 @@ SCoperator.prototype.configAPI = function (API) {
 	if (this.API == "V1") {
 		this.corsProxy = "";
 	} else {
-		this.corsProxy = "https://cors-anywhere.herokuapp.com/";
+		// NOTE: public facing proxies are OK for dev/test
+		// but quickly burn up ... a serious application
+		// would offer it's own proxy, soley for V2 API connection
+
+		// this.corsProxy = "https://cors-anywhere.herokuapp.com/";		
+		this.corsProxy = "https://api.allorigins.win/raw?url=";
 	}
 
 	this.resolver = this.mainAPI + "resolve?url=";
 }
 
+SCoperator.prototype.spinURL = function (url) {
+	return url = (this.API == "V1") ? url : encodeURIComponent(url);
+}
 
 SCoperator.prototype.desiredThings = function () {
 	return {
@@ -89,7 +97,7 @@ SCoperator.prototype.getThings = function (requestedThings) {
 		} //settings;
 	}
 	self.thingGetting = $.get(
-		self.corsProxy + thingsToGet, {}
+		self.corsProxy + self.spinURL(thingsToGet), {}
 	)
 		.done(function (data) {
 			requestedThings.thendo(self, data);
@@ -108,7 +116,7 @@ SCoperator.prototype.getThings = function (requestedThings) {
 				}
 				if (("next_href" in data) && data.next_href) {
 					console.log("Paging is explicit");
-					requestedThings.auto_paginate = self.corsProxy + data.next_href + "&client_id=" + self.client_id;
+					requestedThings.auto_paginate = self.corsProxy + self.spinURL(data.next_href + "&client_id=" + self.client_id);
 				}
 				if (requestedThings.auto_paginate) {
 					self.getThings(requestedThings);
@@ -231,7 +239,7 @@ SCoperator.prototype.resolve = function (resource, dowith) {
 	self.resolved = null;
 
 	self.resolving = $.get(
-		self.corsProxy + toResolve, {}
+		self.corsProxy + self.spinURL(toResolve), {}
 	)
 		.done(function (data) {
 			dowith(self, data);
@@ -245,23 +253,48 @@ SCoperator.prototype.resolve = function (resource, dowith) {
 SCoperator.prototype.getClient = function (clientaction) {
 	var self = this;
 	if (self.API == "V1") {
-		// V.1 von https://jsbin.com/fixabomefe/edit?html,console
-		// The client ID used there is used in the test environment for an OSS Soundcloud library
-		// It is ugly.
+		// July 1st, 2021 by Rahul Rumalla
+		// All client id's in the wild have been redacted!
+		// so this is broken forever:
 		self.client_id = "08f79801a998c381762ec5b15e4914d5";
+		// see: https://developers.soundcloud.com/blog/security-updates-api
+			// As part of our continuous effort toward making improvements to our API 
+			// with the hope that we can relaunch API access to all developers, 
+			// we’re making some critical security improvements.
+				// 		Use Client Credentials Grant for Server-Side Integrations
+						// Currently, to access the public resources of the platform, server-side integrations 
+						// with our API only require a client_id in the URL’s query parameter. 
+						// We’ll be strengthening our authorization here by making all public resources on the API 
+						// only accessible to apps that have been authorized with the client_credentials grant. 
+						// This will enable the app to capture both the access_token and the refresh_token 
+						// to then fetch the resources from the API. 
+						// Please note that the use of client_id will be deprecated and deleted soon (from July 2021). 
+						// Developers should provide the Authentication header for all their requests to the 
+						// SoundCloud API going forward.
+						// Here’s an example of getting an access token via the client_credentials grant type:
+						// curl --request POST \
+						// --url https://api.soundcloud.com/oauth2/token \
+						// --header 'Content-Type: application/x-www-form-urlencoded' \
+						// --data client_id=CLIENT_ID \
+						// --data client_secret=CLIENT_SECRET \
+						// --data grant_type=client_credentials
 		clientaction(self);
 	} else {
-		// We could get a new/fresh each time, but then need to use API2 per below
-		// V.2 is 'public' but it needs CORS proxy :(
+		// We can get a new/fresh each time, by using API2 per below
+		// This sidesteps formal auth. (we are anonymous just like any SoundCloud site visitor is)
+		// Except ... now we look like we are coming from the wrong domain!
+		// ie: V.2 is 'public' but it needs CORS proxy :(
 		self.initialising = $.get(
 			//"https://a-v2.sndcdn.com/assets/48-2160c10a-3.js", {}
-			"https://a-v2.sndcdn.com/assets/46-285b9963-3.js", {}
+			// "https://a-v2.sndcdn.com/assets/46-285b9963-3.js", {}
+			"https://a-v2.sndcdn.com/assets/2-2b91e95d.js", {}
 		)
 			.done(function (data) {
-				got_id = data.match(new RegExp("client_application_id:.....,client_id:(.*),env:"))[1];
+				got_id = data.match(new RegExp("web-auth\\?client_id\=(.*)&device_id"))[1];
 				got_id = got_id.replace(/"/g, "");
-				self.client_id = got_id;
-				clientaction();
+				self.client_id = got_id; //+"app_version=1630571747&app_locale=en";
+				console.log("Adopted: " + self.client_id);
+				clientaction(self);
 			})
 			.fail(function (jqXHR, textStatus, errorThrown) {
 				self.stayAlert("SC client request " + textStatus + " " + errorThrown);
