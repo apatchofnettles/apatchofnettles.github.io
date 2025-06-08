@@ -1,0 +1,45 @@
+/* 550 */
+@media only screen and (max-width : 550px) {
+    :root {
+        --hx-border-radius: 0.75vw;
+        --hx-skeuo-mould: 2.325vw;
+        --hx-skeuo-point: 0.6vw;
+    }
+
+    p.showit::before {
+        content: "slim";
+    }
+
+    /* float the controls as narrow/centred */
+    div.div-htkctrl {
+        position: absolute;
+        margin-inline: auto;
+        left: 0px;
+        right: 0px;
+        width: fit-content;
+        display: inline-block;
+    }
+}
+
+/* 550 */
+@media only screen and (min-width : 551px) {
+    :root {
+        --hx-style-scale: max(1vw, 1vh);
+        /* --hx-border-radius: max(calc(var(--hx-style-scale)*0.31), 0.235rem); */
+        /* --hx-skeuo-mould: max(calc(var(--hx-style-scale)*0.94), 0.695rem); */
+        /* --hx-skeuo-point: max(calc(var(--hx-style-scale)*0.25), 0.185rem); */
+        --hx-border-radius: max(calc(var(--hx-style-scale)*0.31), 0.225rem);
+        --hx-skeuo-mould: max(calc(var(--hx-style-scale)*0.94), 0.69rem);
+        --hx-skeuo-point: max(calc(var(--hx-style-scale)*0.25), 0.18rem);
+    }
+
+    p.showit::before {
+        content: "standard";
+    }
+
+    /* fix the controls at top left */
+    div.div-htkctrl {
+        position: absolute;
+        left: 3%;
+    }
+}

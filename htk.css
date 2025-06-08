@@ -1,0 +1,283 @@
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/* html */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+body {
+    min-height: 100vh;
+    max-height: 100vh;
+    background-color: rgb(57, 51, 51);
+    overflow: hidden;
+}
+
+/* major containers */
+div.div-htkmodal {
+    display: none;
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+div.div-htkpage {
+    position: absolute;
+    overflow: hidden;
+    top: 2.25vh;
+    border-radius: calc(var(--hx-border-radius)*6);
+    margin-inline: auto;
+    left: 0px;
+    right: 0px;
+    width: fit-content;
+    display: inline-block;
+}
+
+div.div-htkctrl {
+    z-index: 5;
+    top: 2.25vh;
+    text-align: center;
+}
+
+div.div-htkctrl div {
+    display: block;
+    margin: auto;
+    margin-top: calc(var(--hx-skeuo-mould)*0.8);
+}
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/* major components */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+div.div-htkbox {
+    width: calc(var(--hx-skeuo-point)*108);
+    border-radius: calc(var(--hx-border-radius)*3);
+}
+
+div.div-htkbar {
+    height: calc(var(--hx-skeuo-mould)*4);
+}
+
+div.div-htkctrl .div-htkalt {
+    display: none;
+    color: lightgrey;
+}
+
+div.div-htkinfo {
+    position: absolute;
+    margin-inline: auto;
+    left: 0;
+    right: 0;
+    margin-top: 3%;
+    z-index: 15;
+    color: white;
+    width: 1px;
+    height: 1px;
+    overflow: auto;
+    text-align: left;
+    display: inline-block;
+}
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/* component styling */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+div.div-htkskeuo {
+    padding: calc(var(--hx-skeuo-mould)*0.75);
+    outline-style: ridge;
+    outline-width: calc(var(--hx-skeuo-mould)*0.4);
+    outline-offset: calc(var(--hx-skeuo-mould)*-0.2);
+    outline-color: lightgrey;
+    background-color: black;
+    box-shadow: calc(var(--hx-skeuo-mould)*-0.33) calc(var(--hx-skeuo-mould)*-0.33) calc(var(--hx-skeuo-mould)*0.33) silver;
+}
+
+div.div-htkbox div.brand-htktext {
+    font-family: Bahnschrift, 'DIN Alternate', 'Franklin Gothic Medium', 'Nimbus Sans Narrow', sans-serif-condensed, sans-serif;
+    font-size: calc(var(--hx-skeuo-point)*10);
+    height: calc(var(--hx-skeuo-point)*10);
+    margin: 0px;
+    padding: 0px;
+}
+
+span.bar-htkprog {
+    width: 100%;
+    background-color: lime;
+    display: block;
+    border-radius: calc(var(--hx-skeuo-mould)*0.6);
+    height: calc(var(--hx-skeuo-mould)*0.4);
+}
+
+.div-htkopts span {
+    position: relative;
+    display: inline-block;
+    height: calc(var(--hx-skeuo-point)*9);
+    margin-top: calc(var(--hx-skeuo-point)*3);
+    margin-left: calc(var(--hx-skeuo-point)*3);
+    margin-right: calc(var(--hx-skeuo-point)*3);
+}
+
+p.print-htktext {
+    font-family: Bahnschrift, 'DIN Alternate', 'Franklin Gothic Medium', 'Nimbus Sans Narrow', sans-serif-condensed, sans-serif;
+    font-size: calc(var(--hx-skeuo-point)*5.5);
+    margin-left: 4vw;
+    margin-right: 4vw;
+}
+
+p.msg-htkstart {
+    font-family: Bahnschrift, 'DIN Alternate', 'Franklin Gothic Medium', 'Nimbus Sans Narrow', sans-serif-condensed, sans-serif;
+    font-size: calc(var(--hx-skeuo-point)*3.5);
+    color: red;
+    position: relative;
+    z-index: 0;
+}
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/* button styling */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+button.btn-htkskeuo {
+    height: 100%;
+    outline-style: ridge;
+    border-radius: 0px;
+    outline-width: calc(var(--hx-skeuo-mould)*0.5);
+    outline-offset: calc(var(--hx-skeuo-mould)*-0.2);
+    /* padding-top: calc(var(--hx-skeuo-mould)*0.33); */
+    width: calc(var(--hx-skeuo-point)*15.5);
+    margin-right: calc(var(--hx-skeuo-mould)*-0.1);
+    margin-left: calc(var(--hx-skeuo-mould)*-0.1);
+    outline-color: lightgrey;
+    background: dimgrey;
+    box-shadow: calc(var(--hx-skeuo-mould)*-0.33) calc(var(--hx-skeuo-mould)*-0.33) calc(var(--hx-skeuo-mould)*0.33) white;
+}
+
+button.btn-htkskeuo:first-of-type {
+    border-top-left-radius: calc(var(--hx-border-radius)*2);
+    border-bottom-left-radius: calc(var(--hx-border-radius)*2);
+}
+
+button.btn-htkskeuo:last-of-type {
+    border-top-right-radius: calc(var(--hx-border-radius)*2);
+    border-bottom-right-radius: calc(var(--hx-border-radius)*2);
+}
+
+/* link, hover, active, focus and visited */
+button.btn-htkskeuo:hover {
+    background-color: slategrey;
+}
+
+button.btn-htkskeuo:active {
+    background-color: darkolivegreen;
+}
+
+button.btn-htkskeuo.active {
+    background-color: olivedrab;
+}
+
+a.btn-htkcorner {
+    height: 100%;
+    width: calc(var(--hx-skeuo-point)*12);
+    border-radius: calc(var(--hx-skeuo-point)*10);
+    background: dimgrey;
+    outline-color: lightgrey;
+    outline-style: ridge;
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* link, hover, active, focus and visited */
+.btn-htkcorner:hover {
+    background-color: grey;
+}
+
+.btn-htkcorner:active {
+    background-color: dimgrey;
+}
+
+a.btn-htkinline {
+    height: 100%;
+    width: calc(var(--hx-skeuo-point)*6.5);
+    padding: calc(var(--hx-skeuo-point)*2);
+    border-radius: calc(var(--hx-skeuo-point)*2);
+}
+
+/* link, hover, active, focus and visited */
+.btn-htkinline:hover {
+    background-color: slategrey;
+}
+
+.btn-htkinline:active {
+    background-color: darkolivegreen;
+}
+
+button.btn-htkwide {
+    width: 100%;
+}
+
+button.btn-htkaction {
+    border-radius: calc(var(--hx-skeuo-mould)*0.3);
+    outline-width: calc(var(--hx-skeuo-mould)*0.5);
+    outline-offset: calc(var(--hx-skeuo-mould)*-0.2);
+    margin: calc(var(--hx-skeuo-mould)*0.2);
+    padding: calc(var(--hx-skeuo-mould)*0.5);
+    outline-color: lightgrey;
+    background: dimgrey;
+    font-weight: bolder;
+    font-size: calc(var(--hx-skeuo-point)*5);
+}
+
+/* link, hover, active, focus and visited */
+button.btn-htkaction:hover {
+    background-color: slategrey;
+}
+
+button.btn-htkaction:active {
+    background-color: darkolivegreen;
+}
+
+button.btn-htkaction.active {
+    background-color: olivedrab;
+}
+
+svg.bi-htk-icon {
+    width: 100%;
+    height: 100%;
+    fill: lavender;
+}
+
+.btn-htkcorner svg.bi-htk-icon {
+    fill: black;
+}
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/* purposed canvases */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+canvas.cnv-htk {
+    background-color: black;
+    position: relative;
+    border-radius: calc(var(--hx-border-radius)*4);
+    padding: calc(var(--hx-skeuo-mould)*0.2);
+    z-index: 2;
+    width: 50vw;
+}
+
+canvas.oled-htk {
+    width: 100%;
+    image-rendering: pixelated;
+}
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/* retained bs strategy for buttons vs screenreader? */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+span.visually-hidden {
+    width: 1px;
+    height: 1px;
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+    overflow: hidden;
+    white-space: nowrap;
+    display: block;
+}

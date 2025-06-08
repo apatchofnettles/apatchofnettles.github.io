@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>hTrack Player</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="./response.css">
+    <link rel="stylesheet" type="text/css" href="./htk.css">
+</head>
+
+<body>
+    <div class="div-htkskeuo div-htkpage" id="htkpage">
+        <div id="htkmodal" class="div-htkmodal">
+            <div id="htkinfo" class="div-htkinfo  div-htkskeuo">
+                <div class="div-htkopts">
+                    <span class="bar-htkpop">
+                        <a id="htkdropinfo" class="btn-htkcorner">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-x bi-htk-icon" viewBox="2 2 12 12">
+                                <path
+                                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                            </svg>
+                        </a>
+                    </span>
+                    <span id="htkopts" class="bar-htkopt">
+                        <a id="htkoptchoose" class="btn-htkinline" clicker="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-folder2-open bi-htk-icon" viewBox="0 0 16 16">
+                                <path
+                                    d="M1 3.5A1.5 1.5 0 0 1 2.5 2h2.764c.958 0 1.76.56 2.311 1.184C7.985 3.648 8.48 4 9 4h4.5A1.5 1.5 0 0 1 15 5.5v.64c.57.265.94.876.856 1.546l-.64 5.124A2.5 2.5 0 0 1 12.733 15H3.266a2.5 2.5 0 0 1-2.481-2.19l-.64-5.124A1.5 1.5 0 0 1 1 6.14zM2 6h12v-.5a.5.5 0 0 0-.5-.5H9c-.964 0-1.71-.629-2.174-1.154C6.374 3.334 5.82 3 5.264 3H2.5a.5.5 0 0 0-.5.5zm-.367 1a.5.5 0 0 0-.496.562l.64 5.124A1.5 1.5 0 0 0 3.266 14h9.468a1.5 1.5 0 0 0 1.489-1.314l.64-5.124A.5.5 0 0 0 14.367 7z" />
+                            </svg>
+                        </a>
+                        <a id="htkoptlink" class="btn-htkinline" clicker="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-link-45deg bi-htk-icon" viewBox="0 0 16 16">
+                                <path
+                                    d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1 1 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4 4 0 0 1-.128-1.287z" />
+                                <path
+                                    d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243z" />
+                            </svg>
+                        </a>
+                        <a id="htkoptdownload" class="btn-htkinline" clicker="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-box-arrow-down bi-htk-icon" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M3.5 10a.5.5 0 0 1-.5-.5v-8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 0 0 1h2A1.5 1.5 0 0 0 14 9.5v-8A1.5 1.5 0 0 0 12.5 0h-9A1.5 1.5 0 0 0 2 1.5v8A1.5 1.5 0 0 0 3.5 11h2a.5.5 0 0 0 0-1z" />
+                                <path fill-rule="evenodd"
+                                    d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708z" />
+                            </svg>
+                        </a>
+                    </span>
+                </div>
+                <p id="htktext" class="print-htktext"></p>
+            </div>
+        </div>
+        <canvas id="htkcanvas" class="cnv-htk">
+            <p>This demo needs a browser supporting the &lt;canvas&gt; element.</p>
+        </canvas>
+        <div class="div-htkctrl">
+            <p class="msg-htkstart">STARTING</p>
+            <div id="htklocal" class="div-htkalt div-htkskeuo div-htkbox">
+                <input id="htkselect" type="file" multiple="true" accept="audio/*" />
+            </div>
+            <div id="htkscaled" class="div-htkskeuo div-htkbox">
+                <span id="htkprog" class="bar-htkprog"></span>
+            </div>
+            <div class="div-htkbar">
+                <button type="button" class="btn-htkskeuo  aud-stop">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="bi-htk-icon bi-stop-circle" viewBox="0 0 16 16">
+                        <path
+                            d="M5 6.5A1.5 1.5 0 0 1 6.5 5h3A1.5 1.5 0 0 1 11 6.5v3A1.5 1.5 0 0 1 9.5 11h-3A1.5 1.5 0 0 1 5 9.5z" />
+                    </svg>
+                    <span class="visually-hidden">ButtonStop</span>
+                </button>
+                <button type="button" class="btn-htkskeuo  aud-play">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="bi-htk-icon bi-play-circle" viewBox="0 0 16 16">
+                        <path
+                            d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445">
+                        </path>
+                    </svg>
+                    <span class="visually-hidden">ButtonPlay</span>
+                </button>
+                <button type="button" class="btn-htkskeuo  aud-prev">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="bi-htk-icon bi-skip-backward-circle"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M11.729 5.055a.5.5 0 0 0-.52.038L8.5 7.028V5.5a.5.5 0 0 0-.79-.407L5 7.028V5.5a.5.5 0 0 0-1 0v5a.5.5 0 0 0 1 0V8.972l2.71 1.935a.5.5 0 0 0 .79-.407V8.972l2.71 1.935A.5.5 0 0 0 12 10.5v-5a.5.5 0 0 0-.271-.445" />
+                    </svg>
+                    <span class="visually-hidden">ButtonPrev</span>
+                </button>
+                <button type="button" class="btn-htkskeuo  aud-next">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="bi-htk-icon bi-skip-forward-circle"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M4.271 5.055a.5.5 0 0 1 .52.038L7.5 7.028V5.5a.5.5 0 0 1 .79-.407L11 7.028V5.5a.5.5 0 0 1 1 0v5a.5.5 0 0 1-1 0V8.972l-2.71 1.935a.5.5 0 0 1-.79-.407V8.972l-2.71 1.935A.5.5 0 0 1 4 10.5v-5a.5.5 0 0 1 .271-.445" />
+                    </svg>
+                    <span class="visually-hidden">ButtonNext</span>
+                </button>
+                <button type="button" class="btn-htkskeuo  aud-rand">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="bi-htk-icon bi-shuffle" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3v1c-1.798 0-3.173 1.01-4.126 2.082A9.6 9.6 0 0 0 7.556 8a9.6 9.6 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12v1c-2.202 0-3.827-1.24-4.874-2.418A10.6 10.6 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.6 9.6 0 0 0 6.444 8a9.6 9.6 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1-.5-.5"
+                            transform="scale(0.5,0.5) translate(8,8)" />
+                        <path
+                            d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192m0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192"
+                            transform="scale(0.5,0.5) translate(8,8)" />
+                    </svg>
+                    <span class="visually-hidden">ButtonShuffle</span>
+                </button>
+                <button type="button" class="btn-htkskeuo  vis-page">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="bi-htk-icon bi-arrow-right-circle"
+                        viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
+                    </svg>
+                    <span class="visually-hidden">ButtonPage</span>
+                </button>
+                <button type="button" class="btn-htkskeuo  vis-bump">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="bi-htk-icon bi-arrow-up-right-circle"
+                        viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M5.854 10.803a.5.5 0 1 1-.708-.707L9.243 6H6.475a.5.5 0 1 1 0-1h3.975a.5.5 0 0 1 .5.5v3.975a.5.5 0 1 1-1 0V6.707z" />
+                    </svg>
+                    <span class="visually-hidden">ButtonBump</span>
+                </button>
+                <button type="button" class="btn-htkskeuo  app-info">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="bi-htk-icon bi-info-circle" viewBox="0 0 16 16">
+                        <path
+                            d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
+                    </svg>
+                    <span class="visually-hidden">ButtonInfo</span>
+                </button>
+            </div>
+            <div class="div-htkskeuo div-htkbox">
+                <div id="oled-screen" class="brand-htktext">
+                    <canvas id="oled-htk" class="oled-htk" aria-label=""></canvas>
+                </div>
+            </div>
+            <!-- <p class="showit">-response-mode</p> -->
+            <p class="msg-htkstart">PLEASE WAIT</p>
+        </div>
+    </div>
+    <audio crossorigin="anonymous" style="display: none;">
+        <p>This demo needs a browser supporting the &lt;audio&gt; element.</p>
+    </audio>
+    <script src="https://unpkg.com/hydra-synth"></script>
+    <script type="text/plain" src="https://unpkg.com/meyda@<VERSION>/dist/web/meyda.min.js"></script>
+    <script type="module" type="text/plain" src="./index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+{
+    "example_only": {
+        "launch": "true/false = to display launch/splash content from app_launch.html",
+        "brand": "Brief label/release description",
+        "license": "Release license",
+        "message": "Alternate/friendly brand tagline",
+        "description": "Detailed/additional site hosting and label/release information",
+        "albums": [
+            {
+                "title": "Name of album release",
+                "notes": {
+                    "caption": "Brief album description",
+                    "artist": "Artist and album information and/or release details",
+                    "attribution": "Creative and/or license details"
+                },
+                "path": "common_asset_source_path",
+                "tracks": [
+                    {
+                        "track": "each_track_asset_file_name.mp3",
+                        "name": "each_track_descriptive_name",
+                        "share": "true/false = link sharing allowed",
+                        "download": "true/false = file donload allowed"
+                    }
+                ]
+            }
+        ]
+    }
+}
