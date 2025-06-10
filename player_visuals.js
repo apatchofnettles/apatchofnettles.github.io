@@ -792,7 +792,7 @@ export const shows = [
     },
 
     () => {
-        update = () => {speed = 1.2 + Math.cos(time)}
+        update = () => { speed = 1.2 + Math.cos(time) }
         shape(4, 0.6, 0.2)
             .modulate(osc(() => (13 * (2 + (Math.sin(time / 103)))), 0.002, 0)
                 .color(0, 1, 0), () => ((time % 27) / 177))
@@ -929,6 +929,43 @@ export const shows = [
             .scale(1, 1, 1.8)
             .out(o0)
     },
+
+    () => {
+        const tl = function () {
+            return shape(() => ((time & 6) + 4), () => (0.95 + ((1 + Math.sin(time)) / 9)), 0.2);
+        }
+        osc(3, 0.8, () => (2 + ((time / 6) & 7)))
+            .mask(
+                tl()
+                    .sub(tl()
+                        .scale(0.25, 1, 1, 0.5, 0.5)
+                        .rotate(() => (time * -1.7)))
+            )
+            .rotate(() => (time))
+            .repeat(71, 71)
+            .modulateScrollX(shape(4, 1, 0)
+                .scale(1, 1, 0.0125), () => (time / 23))
+            .modulateScale(osc(7, 0.03, 0).mask(shape(4, 1, 4)
+                .scale(1, 1, 0.0125, 0.5, 0.5)), 2)
+            .modulate(noise(30, 0.8), 0.003)
+            .modulateScale(osc(3, .2, 0)
+                .rotate(() => (time / 27)))
+            .modulateScale(osc(3.1, -.2, 0)
+                .rotate(() => (time / 31)))
+            .modulateScale(osc(4.1, 0.02, 0)
+                .rotate(() => (time / 17)))
+            .modulateScale(osc(4, -0.02, 0)
+                .rotate(() => (time / 19)))
+            .rotate(() => (time / 13))
+            .sub(src(o0)
+                .scale(1.0085, 1, 1, 0.5, 0.025)
+                .saturate(1.3), 0.35)
+            .contrast(1.2)
+            .diff(osc(3, 0.1, () => ((time / 7) & 5))
+                .contrast(() => (0.75 + ((time & 3) / 3))))
+            .mult(noise(538, 3), 0.085)
+            .out(o0)
+    }
 
 
 
