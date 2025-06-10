@@ -930,6 +930,33 @@ export const shows = [
             .out(o0)
     },
 
+    () => {
+        speed = 0.025;
+        osc(5, 2, () => 1 + ((time / 11) & 5))
+            .rotate(() => time)
+            .mask(shape(6, 0.475, 0))
+            .scrollY(0.5, 0)
+            .add(
+                osc(6, -2, () => 3 + ((time / 9) & 3))
+                    .rotate(() => -time)
+                    .mask(shape(6, 0.475, 0))
+            )
+            .scale(1, 1.175, 1, 0.5, 0.5)
+            .out(o1)
+        src(o1)
+            .add(src(o1)
+                .scrollY(0.25, 0)
+                .scrollX(0.5, 0))
+            .repeat(4, 2)
+            .scroll(() => Math.sin(time / 3), () => Math.cos(time / 5), 0.1, 0.1)
+            .modulate(noise(() => 4 + Math.sin(time / 6), () => (2 + Math.cos(time / 27) / 4)), 0.0385)
+            .blend(src(o0)
+                .invert()
+                .saturate(6), 0.1)
+            .rotate(() => time / 23)
+            .out(o0)
+    }
+
     // () => {
     //     const tl = function () {
     //         return shape(() => ((time & 6) + 4), () => (0.95 + ((1 + Math.sin(time)) / 9)), 0.2);
