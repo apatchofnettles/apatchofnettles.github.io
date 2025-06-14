@@ -35,9 +35,7 @@
   - Do not alter the standing attribution messages coded into the hTrack source.<br><br>
 
 hTrack is from the Gooseyard.
-Hydra is by <a target='_blank' rel='noopener noreferrer' href='https://ojack.xyz/about/'>ojack</a>
-, used here under <a target='_blank' rel='noopener noreferrer'
-href='https://github.com/hydra-synth/hydra-synth/blob/main/LICENSE'>AGPL</a>.
-Hydra audio extensions use <a target='_blank' rel='noopener noreferrer' href='https://meyda.js.org/'>Meyda</a>
-under <a target='_blank' rel='noopener noreferrer'
-href='https://github.com/meyda/meyda/blob/main/LICENSE.md'>MIT</a> license.
+Hydra is by <a href='https://ojack.xyz/about/'>ojack</a>
+, used here under <a href='https://github.com/hydra-synth/hydra-synth/blob/main/LICENSE'>AGPL</a>.
+Hydra audio extensions use <a href='https://meyda.js.org/'>Meyda</a>
+under <a href='https://github.com/meyda/meyda/blob/main/LICENSE.md'>MIT</a> license.
