@@ -18,7 +18,7 @@
                     "track": "each_track_asset_file_name.mp3",
                     "name": "each_track_descriptive_name",
                     "share": "true/false = link sharing allowed",
-                    "download": "true/false = file donload allowed"
+                    "download": "true/false = file download allowed"
                 }
             ]
         }
