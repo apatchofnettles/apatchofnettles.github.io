@@ -28,6 +28,13 @@
   - Replace with your own HTML to customise a splash screen or release page. 
   - Set app_config {"launch":true,false} to control whether the splash is displayed.<br><br>
 
+# How can I change the visuals?
+ - See <a href="https://github.com/apatchofnettles/apatchofnettles.github.io/blob/master/player_visuals.js">"player_visuals.js"</a>.
+ - Replace the show() function if you have ambitions to generate code algorithmically or stream/inline it from some external source!
+ - Otherwise, freely add and remove functions from the exported shows[()=>{},] array of Hydra patches.
+ - If you have patches using Hydra's audio and FFT numerics they will work as expected.
+ - hTrack also automatically makes simple time based animations become audio responsive.
+ - The primary time value is modulated with FFT derived values keyed to the Hydra/Meyda beat detection functions.<br><br>
 
 # Attribution
   - You can use and deploy hTrack freely, but be sure to preserve the existing attribution.
