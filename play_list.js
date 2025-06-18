@@ -48,8 +48,8 @@ export class Tracking {
 
         notes.download = encodeURIComponent((notes.album + "_" + notes.track).replace(/[^a-z0-9\.]/gi, '_').toLowerCase());
         notes.trackrequest = (new URL(window.location)?.origin ?? "")
-            + "/?titled="+notes.download
-            +"&request=" + btoa(JSON.stringify({ "album": notes.album, "track": notes.track }));
+            + "/?titled=" + notes.download
+            + "&request=" + btoa(JSON.stringify({ "album": notes.album, "track": notes.track }));
         notes.trackorigin = (new URL(window.location)?.origin ?? "")
             + "/" + this.pathPrepended();
         return notes;
@@ -72,9 +72,9 @@ export class Tracking {
     }
 
     seek(album, track) {
-        this.album=this.albums[Number(album)];
-        this.trackPos=Number(track);
-            return this.mountTrack();
+        this.album = this.albums[Number(album)];
+        this.trackPos = Number(track);
+        return this.mountTrack();
     }
 
     request(trackRequest) {
@@ -260,10 +260,12 @@ export class Tracking {
                 "notes": {
                     "caption": "Select files on your device to start a playlist.",
                     "artist": "Use the player buttons to control audio and images.",
-                    "attribution": "Clone hTrack to host your own album releases.<br/><br/>"+
-                    "Demo Vibes from: <a target='_blank' rel='noopener noreferrer'"
-                        +" href='https://archive.org/details/SawOctet' style='text-decoration: none'>"
-                        +"Saw Octet, Johannes Bergmark</a> by CC license."
+                    "attribution": "Clone <a target='_blank' rel='noopener noreferrer'"
+                        + " href='https://github.com/apatchofnettles/apatchofnettles.github.io' style='text-decoration: none'>"
+                        + "hTrack</a> to host your own album releases.<br/><br/>" +
+                        "Demo Vibes from: <a target='_blank' rel='noopener noreferrer'"
+                        + " href='https://archive.org/details/SawOctet' style='text-decoration: none'>"
+                        + "Saw Octet, Johannes Bergmark</a> by CC license."
                 },
                 "tracks": [
                     {
