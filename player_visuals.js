@@ -955,44 +955,121 @@ export const shows = [
                 .saturate(6), 0.1)
             .rotate(() => time / 23)
             .out(o0)
-    }
+    },
 
-    // () => {
-    //     const tl = function () {
-    //         return shape(() => ((time & 6) + 4), () => (0.95 + ((1 + Math.sin(time)) / 9)), 0.2);
-    //     }
-    //     osc(3, 0.8, () => (2 + ((time / 6) & 7)))
-    //         .mask(
-    //             tl()
-    //                 .sub(tl()
-    //                     .scale(0.25, 1, 1, 0.5, 0.5)
-    //                     .rotate(() => (time * -1.7)))
-    //         )
-    //         .rotate(() => (time))
-    //         .repeat(71, 71)
-    //         .modulateScrollX(shape(4, 1, 0)
-    //             .scale(1, 1, 0.0125), () => (time / 23))
-    //         .modulateScale(osc(7, 0.03, 0).mask(shape(4, 1, 4)
-    //             .scale(1, 1, 0.0125, 0.5, 0.5)), 2)
-    //         .modulate(noise(30, 0.8), 0.003)
-    //         .modulateScale(osc(3, .2, 0)
-    //             .rotate(() => (time / 27)))
-    //         .modulateScale(osc(3.1, -.2, 0)
-    //             .rotate(() => (time / 31)))
-    //         .modulateScale(osc(4.1, 0.02, 0)
-    //             .rotate(() => (time / 17)))
-    //         .modulateScale(osc(4, -0.02, 0)
-    //             .rotate(() => (time / 19)))
-    //         .rotate(() => (time / 13))
-    //         .sub(src(o0)
-    //             .scale(1.0085, 1, 1, 0.5, 0.025)
-    //             .saturate(1.3), 0.35)
-    //         .contrast(1.2)
-    //         .diff(osc(3, 0.1, () => ((time / 7) & 5))
-    //             .contrast(() => (0.75 + ((time & 3) / 3))))
-    //         .mult(noise(538, 3), 0.085)
-    //         .out(o0)
-    // }
+    () => {
+        osc(77, 0.075, 0)
+            .mask(osc(197, 0.08, 0)
+                .rotate(Math.PI / 2)
+                .thresh(0.1, 0))
+            .thresh(() => (1.25 + Math.cos(time)) / 3, 0.1)
+            .modulateRotate(
+                shape(88, 0.01, () => 2.25 + Math.cos(time / 8)), () => 7 + (3 * Math.sin(time / 5))
+            )
+            .diff(
+                osc(13, -0.01, () => 7 + (2 * Math.sin(time / 4)))
+                    .kaleid(88)
+                    .add(gradient()
+                        .kaleid(4), 2)
+                    .modulate(noise(9, 0.02), 0.035)
+                    .posterize(() => 7 + (6 * Math.cos(time / 11)), () => 4.5 + (4 * Math.sin(time)))
+                    .mask(shape(88, 0.725, 0.2)
+                        .repeat(() => 7 + ((time / 3) & 7), () => 5 + ((time / 2) & 9))
+                        .rotate(() => -time / 9)
+                        .modulate(noise(4, 0.3), 0.01)
+                    )
+            )
+            .scale(1, 1, 1.8, 0.5, 0.5)
+            .mult(src(o0)
+                .saturate(2), 0.525)
+            .blend(src(o0), 0.35)
+            .out(o0)
+    },
+
+    () => {
+        function frz(bnd, phz, plt) {
+            return osc(bnd, phz, plt)
+                .luma(0.15, 0.025)
+                .modulateScale(shape(4, 0.3, () => (1.5 + Math.cos(time)) / 2)
+                    .scale(1, 3, 1, 0.5, 0.5)
+                    .scroll(0, 0.5, 0, 0)
+                    .modulate(noise(3, 0.03), 0.5));
+        }
+
+        function grd() {
+            return shape(4, () => (1.25 + Math.sin(time / 5)) / 3, 0.45)
+                .repeat(19, 10);
+        }
+
+        frz(17, 0.01, 5)
+            .diff(frz(37, 0.03, 5)
+                .rotate(() => -time / 5))
+            .posterize(() => (30 + (16 * Math.cos(time / 11))), 3)
+            .modulateRotate(
+                shape(88, 0.01, 1.2)
+                    .invert()
+                    .pixelate(38, 20), () => (2 + Math.sin(time / 37) * 5)
+            )
+            .mult(
+                grd()
+                    .rotate(() => time / 11)
+                    .diff(grd()
+                        .invert()
+                    ), () => (1.15 + Math.cos(time / 9))
+            )
+            .rotate(() => -time / 17)
+            .mult(noise(37, 0.8), 0.085)
+            .add(src(o0)
+                .posterize(2, 0.15)
+                .saturate(1.2)
+                .luma(0.75, 0.3), 8)
+            .out(o1)
+
+        src(o1)
+            .kaleid(999)
+            .modulate(noise(3, 0.1), 0.02)
+            .saturate(() => 3.5 + (2 * Math.cos(time * 3)))
+            .scale(1, 1, 1.8, 0.5, 0.5)
+            .luma(0.85, 0.65)
+            .diff(src(o1))
+            .out(o0)
+    },
+
+
+    () => {
+        function tl() {
+            return shape(() => ((time & 6) + 4), () => (0.95 + ((1 + Math.sin(time)) / 9)), 0.2);
+        }
+        osc(3, 0.8, () => (2 + ((time / 7) & 7)))
+            .brightness(0.38)
+            .mask(
+                tl()
+                    .sub(tl()
+                        .scale(0.25, 1, 1, 0.5, 0.5)
+                        .rotate(() => (time * -1.7)))
+            )
+            .rotate(() => (time))
+            .repeat(25, 25)
+            .modulateScrollX(shape(4, 1, 0)
+                .scale(1, 1, 0.04, 0.5, 0.5), () => (time / 23))
+            .modulateScale(osc(7, 0.03, 0)
+                .mask(shape(4, 1, 4)
+                    .scale(1, 1, 0.04, 0.5, 0.5)), 2)
+            .modulate(noise(30, 0.8), 0.003)
+            .modulateScale(osc(3, 0.2, 0)
+                .rotate(() => (time / 27))
+                .add(osc(3.1, -0.17, 0)
+                    .rotate(() => (time / 31)), () => 1 + Math.sin(time / 5)),
+                () => 1.75 + Math.cos(time / 9)
+            )
+            .rotate(() => (time / 13))
+            .mult(noise(938, 3)
+                .add(osc(4, 1.8, () => ((time / 2) & 5)), 6), 0.0875)
+            .sub(src(o0)
+                .scale(1, 1.0085, 1.01, 0.5, 0.025)
+                .contrast(1.3), 0.35)
+            .out(o0)
+    }
 
 
 
