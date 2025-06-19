@@ -1035,6 +1035,41 @@ export const shows = [
             .out(o0)
     },
 
+    () => {
+        function blr(r) {
+            return shape(88, 0.001, r);
+        }
+
+        osc(13, 0.08, 5)
+            .diff(
+                osc(11, -0.08, () => (1 + ((time / 13) & 3)))
+            )
+            .luma(0.35, 0.65)
+            .modulateRotate(
+                blr(() => 0.75 + (Math.sin(time) / 4))
+                    .add(blr(() => 0.75 + (Math.sin(time) / 2))
+                        .repeat(2, 2)
+                        .invert(), () => 1.25 + Math.cos(time / 5))
+                    .add(blr(0.8)
+                        .repeat(4, 4)
+                        .invert(), () => 1.25 + Math.sin(time / 3))
+                    .add(blr(0.95)
+                        .repeat(8, 8), () => 1.25 + Math.cos(time / 7)), 3.5 + (Math.cos(time / 11)))
+            .modulateScale(
+                osc(17, 0.065, 0)
+                    .rotate(Math.PI / 4)
+                    .add(
+                        osc(19, 0.0575, 0)
+                            .rotate(-Math.PI / 4), 1
+                    ), 0.125
+            )
+            .add(src(o0)
+                .posterize(() => 8 + (6 * Math.cos(time * 3)), 4.25), 0.35)
+            .add(src(o0)
+                .luma(0.65, 0.8)
+                .mult(noise(13, .0075), 0.25), 0.45)
+            .out(o0)
+    },
 
     () => {
         function tl() {
