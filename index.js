@@ -34,28 +34,52 @@ const hydra = new Hydra({
     detectAudio: false
 });
 
-const appDeployed = (await getJsonAsset("app_config.json"));
+const params = new URLSearchParams(document.location.search);
 
-const appCatalogue = ((appDeployed?.albums) ?? []);
+const appDeployed = (await getJsonAsset("app_config.json"));
+let appCatalogue = ((appDeployed?.albums) ?? []);
+
+const singleLink = params.get("single");
+if (singleLink) {
+    appCatalogue.push({
+        "title": "Single Play",
+        "path": "",
+        "notes": {
+            "caption": params.get("message") ?? "Now on hTrack.",
+            "artist": params.get("artist") ?? "From the web.",
+            "attribution": params.get("license") ?? "Shared by link."
+        },
+        "tracks": [
+            {
+                "track": singleLink,
+                "name": params.get("name") ?? "Sent To You",
+                "download": false,
+                "share": false,
+            },
+        ]
+    });
+    appDeployed.message = appDeployed.message??"Wild growth outside the walled gardens.";
+    appDeployed.description = appDeployed.description??"Enjoy.";
+}
 
 const playlist = new Tracking({
     container: document.querySelector('#oled-screen'),
     canvas: document.querySelector('#oled-htk'),
     standby: "hTrack player * from the Gooseyard * "
-        + ((appDeployed?.brand) ? appDeployed.brand + " * ": "")
-        + ((appDeployed?.license) ? appDeployed.license + " * ": "")
+        + ((appDeployed?.brand) ? appDeployed.brand + " * " : "")
+        + ((appDeployed?.license) ? appDeployed.license + " * " : "")
         + "hydra by ojack * "
-        + ((appDeployed?.message) ?  appDeployed.message + " * ":""),
+        + ((appDeployed?.message) ? appDeployed.message + " * " : ""),
     catalogue: appCatalogue
 });
 const launchPage = await getTextAsset("app_launch.html");
-pageReady();
+engineReady();
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // launch interfaces against hydra and playlist
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-function pageReady() {
+function engineReady() {
     leadIns.forEach((dropOut) => { dropOut.style.display = "none"; });
     if (playlist.localMode) {
         localBrowsing.style.display = "block";
@@ -65,7 +89,6 @@ function pageReady() {
     if (appDeployed.launch || playlist.localMode) {
         appLaunch();
     }
-    const params = new URLSearchParams(document.location.search);
     const trackRequest = params.get("request");
     if (trackRequest) {
         playRequest(trackRequest);
@@ -187,10 +210,10 @@ function popModal() {
     const h = asPage.clientHeight * 0.88;
     modalInfo.style.width = w + "px";
     modalInfo.style.height = h + "px";
+    infoText.innerHTML = "";
     const options = document.querySelectorAll("#htkopts .btn-htkinline");
-    infoText.innerHTML = ""
     options.forEach((dropOpt) => { dropOpt.style.display = "none"; });
-    modalInfo.scrollTo(0,0); 
+    modalInfo.scrollTo(0, 0);
 }
 
 function appInfo() {
@@ -212,14 +235,14 @@ function appInfo() {
         picker.addEventListener("click", picker.clicker = () => { appBrowse(); });
         picker.style.display = "inline-block";
 
-        if (notes.share) {
+        if (notes.share && notes.share == true) {
             const linker = document.querySelector("#htkoptlink");
             linker.removeEventListener("click", linker.clicker);
             linker.addEventListener("click", linker.clicker = () => { navigator.clipboard.writeText(notes.trackrequest) });
             linker.style.display = "inline-block";
         }
 
-        if (notes.download) {
+        if (notes.download && notes.download == true) {
             const loader = document.querySelector("#htkoptdownload");
             loader.href = notes.trackorigin;
             loader.download = notes.download;
@@ -276,8 +299,8 @@ function browseOK() {
         audioElement.src = playlist.seek(album, track);
         playAudio();
     }
-        dropModal();
-        rehydrate();
+    dropModal();
+    rehydrate();
 }
 
 function albumBrowse() {

@@ -10,6 +10,6 @@ export function getJsonAsset(url) {
     return fetch(url)
         .then(response => response.json())
         .catch(() => {
-            return "";
+            return {};
         });
 }
