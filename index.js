@@ -36,13 +36,17 @@ const hydra = new Hydra({
 
 const params = new URLSearchParams(document.location.search);
 
+let trackRequest = params.get("request");
+const singleLink = params.get("single");
+
 const appDeployed = (await getJsonAsset("app_config.json"));
 let appCatalogue = ((appDeployed?.albums) ?? []);
 
-const singleLink = params.get("single");
 if (singleLink) {
+    const mockAlbum = "Single Play";
+    const namedSingle = params.get("name") ?? "Sent To You";
     appCatalogue.push({
-        "title": "Single Play",
+        "title": mockAlbum,
         "path": "",
         "notes": {
             "caption": params.get("message") ?? "Now on hTrack.",
@@ -52,7 +56,7 @@ if (singleLink) {
         "tracks": [
             {
                 "track": singleLink,
-                "name": params.get("name") ?? "Sent To You",
+                "name": namedSingle,
                 "download": false,
                 "share": false,
             },
@@ -60,6 +64,7 @@ if (singleLink) {
     });
     appDeployed.message = appDeployed.message??"Wild growth outside the walled gardens.";
     appDeployed.description = appDeployed.description??"Enjoy.";
+    trackRequest = btoa(JSON.stringify({ "album": mockAlbum, "track": namedSingle }));
 }
 
 const playlist = new Tracking({
@@ -89,7 +94,6 @@ function engineReady() {
     if (appDeployed.launch || playlist.localMode) {
         appLaunch();
     }
-    const trackRequest = params.get("request");
     if (trackRequest) {
         playRequest(trackRequest);
     }
