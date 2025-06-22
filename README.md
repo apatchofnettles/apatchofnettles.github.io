@@ -9,9 +9,9 @@
 
 # What can hTrack do?
 
-+    Play audio tracks from your device's local file system with sound reactive visualisations. (Demo mode)
++    Play audio tracks from your device's local file system with sound reactive visualisations. (Demo Mode)
 +    Load audio from a URL / remote resource and play it with descriptive annotations. (Single Play)
-+    Catalogue and present albums hosted on remote storage with simple to set up branding and attribution.
++    Catalogue and present albums hosted on remote storage with simple to set up branding and attribution. (Static Site)
 +    Manage a gallery of audio visualisations written using Hydra.<br><br>
 
 # How would I use it?
