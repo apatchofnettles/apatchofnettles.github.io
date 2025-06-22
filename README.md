@@ -16,7 +16,7 @@
 
 # How would I use it?
 
-+    Quickly explore hTrack running as a local+   file audio player in demo mode from <a href="https://apatchofnettles.github.io">here</a>
++    Quickly explore hTrack running as a local file audio player in demo mode from <a href="https://apatchofnettles.github.io">here</a>
 +    You can also make links for public files from the web, by adding a path and parameters to the URL.
 +    A link is indicated by '?single=' and hTrack will adapt annotations if you provide 'name=', 'artist=', 'message=' or 'license='.
 +    eg:
