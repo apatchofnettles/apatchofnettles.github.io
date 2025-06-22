@@ -1,4 +1,5 @@
-# hTrackAn audio player in html5
+# hTrack, From The Gooseyard
+# An audio player in html5
 <br>
 
 # Why does this exist?
@@ -11,7 +12,7 @@
 +    Play audio tracks from your device's local file system with sound reactive visualisations. (Demo mode)
 +    Load audio from a URL / remote resource and play it with descriptive annotations. (Single Play)
 +    Catalogue and present albums hosted on remote storage with simple to set up branding and attribution.
-+    Share a gallery of audio visualisations written using Hydra.<br><br>
++    Manage a gallery of audio visualisations written using Hydra.<br><br>
 
 # How would I use it?
 
