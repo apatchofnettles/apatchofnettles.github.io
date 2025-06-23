@@ -1072,6 +1072,36 @@ export const shows = [
     },
 
     () => {
+        osc(53, 0.01, 0)
+            .thresh(() => 0.5 + (Math.cos(time) / 4), 0)
+            .mask(osc(97, 0, 0)
+                .thresh(0.025, 0)
+                .rotate(Math.PI / 2))
+            .modulateRotate(
+                shape(88, .01, () => 1.25 + Math.sin(time / 3))
+                    .scroll(0, 0.5, 0, 0)
+                    .add(
+                        shape(88, .01, () => 1.25 + Math.sin(time / 5))
+                            .scroll(0.5, 0, 0, 0)
+                    )
+                , () => Math.PI / (1.75 + Math.cos(time / 8))
+            )
+            .sub(src(o0)
+                .scale(1, 0.985, 0.985, 0.5, 0.15)
+                .posterize(2, 13), 0.35)
+            .diff(
+                osc(11, 0.01, 5)
+                    .mask(
+                        shape(88, 0.95, () => 0.8 + (0.3 * Math.cos(time * 17)))
+                            .repeat(32, 32)
+                    )
+                    .add(osc(5, -0.1, 1))
+                    .modulate(noise(2, 0.2), 0.02)
+            )
+            .out(o0)
+    },
+
+    () => {
         function tl() {
             return shape(() => ((time & 6) + 4), () => (0.95 + ((1 + Math.sin(time)) / 9)), 0.2);
         }
