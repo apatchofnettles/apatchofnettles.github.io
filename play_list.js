@@ -46,7 +46,7 @@ export class Tracking {
         };
         this.album?.tracks.forEach((t) => { notes.names.push((t?.name) ? t.name : t.track); });
 
-        notes.download = encodeURIComponent((notes.album + "_" + notes.track).replace(/[^a-z0-9\.]/gi, '_').toLowerCase());
+        notes.downloadAs = encodeURIComponent((notes.album + "_" + notes.track).replace(/[^a-z0-9\.]/gi, '_').toLowerCase());
         notes.trackrequest = (new URL(window.location)?.origin ?? "")
             + "/?titled=" + notes.download
             + "&request=" + btoa(JSON.stringify({ "album": notes.album, "track": notes.track }));

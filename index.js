@@ -39,7 +39,7 @@ const params = new URLSearchParams(document.location.search);
 let trackRequest = params.get("request");
 const singleLink = params.get("single");
 
-const appDeployed = (await getJsonAsset("app_config.json"));
+const appDeployed = (await getJsonAsset(params.get("config") ?? "app_config.json"));
 let appCatalogue = ((appDeployed?.albums) ?? []);
 
 if (singleLink) {
@@ -245,11 +245,11 @@ function appInfo() {
             linker.addEventListener("click", linker.clicker = () => { navigator.clipboard.writeText(notes.trackrequest) });
             linker.style.display = "inline-block";
         }
-
+        
         if (notes.download && notes.download == true) {
             const loader = document.querySelector("#htkoptdownload");
             loader.href = notes.trackorigin;
-            loader.download = notes.download;
+            loader.download = notes.downloadAs;
             loader.style.display = "inline-block";
         }
     }
