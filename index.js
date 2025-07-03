@@ -39,7 +39,10 @@ const params = new URLSearchParams(document.location.search);
 let trackRequest = params.get("request");
 const singleLink = params.get("single");
 
-const appDeployed = (await getJsonAsset(params.get("config") ?? "app_config.json"));
+const appConfig = params.get("config")
+    ? { json: params.get("config"), remote: true }
+    : { json: "app_config.json", remote: false };
+const appDeployed = (await getJsonAsset(appConfig.json));
 let appCatalogue = ((appDeployed?.albums) ?? []);
 
 if (singleLink) {
@@ -62,8 +65,8 @@ if (singleLink) {
             },
         ]
     });
-    appDeployed.message = appDeployed.message??"Wild growth outside the walled gardens.";
-    appDeployed.description = appDeployed.description??"Enjoy.";
+    appDeployed.message = appDeployed.message ?? "Wild growth outside the walled gardens.";
+    appDeployed.description = appDeployed.description ?? "Enjoy.";
     trackRequest = btoa(JSON.stringify({ "album": mockAlbum, "track": namedSingle }));
 }
 
@@ -242,10 +245,11 @@ function appInfo() {
         if (notes.share && notes.share == true) {
             const linker = document.querySelector("#htkoptlink");
             linker.removeEventListener("click", linker.clicker);
-            linker.addEventListener("click", linker.clicker = () => { navigator.clipboard.writeText(notes.trackrequest) });
+            const appRemote = appConfig.remote ? "&config=" + appConfig.json : "";
+            linker.addEventListener("click", linker.clicker = () => { navigator.clipboard.writeText(notes.trackrequest + appRemote) });
             linker.style.display = "inline-block";
         }
-        
+
         if (notes.download && notes.download == true) {
             const loader = document.querySelector("#htkoptdownload");
             loader.href = notes.trackorigin;
@@ -263,7 +267,8 @@ function appInfo() {
         + ((namedBlock.length) ? ("<br/><br/><strong>" + namedBlock + "</strong><br/><br/>") : "<br/><br/>")
         + ((notes.artist) ? notes.artist + "<br/><br/>" : "")
         + ((notes.attribution) ? notes.attribution + "<br/><br/>" : "")
-        + "<i><small>hTrack is from the Gooseyard after the eras of Nettles and GreyBox."
+        + "<i><small><a target='_blank' rel='noopener noreferrer' href='https://github.com/apatchofnettles/apatchofnettles.github.io'>"
+        + "hTrack</a> is from the Gooseyard after the eras of Nettles and GreyBox."
         + " All are experiments in collage, processing, chaos, generation and collaboration"
         + " yielding sound tracks as musical mimesis."
         + " Hydra is by <a target='_blank' rel='noopener noreferrer' href='https://ojack.xyz/about/'>ojack</a>"

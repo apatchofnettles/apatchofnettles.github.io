@@ -6,6 +6,33 @@ export function show() {
 export const shows = [
 
     () => {
+        osc(27, 0.05, 1)
+	.sub(
+		osc(37, 0.03, () => ((time / 13) & 3) + 1)
+		.luma(0.3, 0.3)
+		.rotate(Math.PI / 2)
+	)
+	.pixelate(58, () => 7 + (Math.sin(time / 11) * 5))
+	.modulateScrollX(
+		osc(7, 0.1, 0)
+		.rotate(Math.PI / 2)
+		.pixelate(1, () => 5 + (Math.sin(time / 5) * 3)), 0.5
+	)
+	.contrast(() => 2 + Math.cos(time / 17))
+	.modulateRotate(shape(4, 0.01, () => (2.25 + Math.sin(time / 3)) / 2.5), () => 6 + (Math.sin(time / 2) * 4))
+	.blend(src(o0)
+		.mask(shape(4, 0.925, 0)
+			.repeat(47, 17)
+			.scroll(0, 0.1, 0, -0.1))
+		.scroll(0.5, 0.5, 0, 0)
+		.add(osc(7, -0.08, 5), 0.85)
+		.modulateScale(shape(8, 0.01, 0.8), 0.75), 0.575)
+	.modulate(noise(3, 0.3), () => 0.04 + (Math.sin(time / 6) / 32))
+	.blend(src(o0), 0.85)
+	.out(o0)
+    },
+
+    () => {
         osc(23)
             .rotate(Math.PI)
             .color([1, 2, 3].fast(0.2), [2, 3, 1].fast(0.7), [3, 1, 2].fast(0.3))
