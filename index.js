@@ -314,15 +314,23 @@ function browseOK() {
 
 function albumBrowse() {
     let albumList = "Albums:<br/>";
+    const containAlb = document.querySelector("#browsealbums");
     let i = 0;
     playlist.albums.forEach((a) => {
-        albumList += "<button class='btn-htkaction' value='" + i + "'>" + ((a?.title) ?? "Unreleased") + "</button>";
+        let buttonAlb = document.createElement("button");
+        buttonAlb.textContent = ((a?.title) ?? "Unreleased");
+        buttonAlb.className = 'btn-htkaction';
+        buttonAlb.value = i;
+        buttonAlb.addEventListener("dblclick", browseOK);
+        if (i == 0) {
+            containAlb.innerHTML = albumList;
+        }
+        containAlb.appendChild(buttonAlb);
         i++;
     });
     if (i > 0) {
-        albumList += "<hr/>";
+        containAlb.appendChild(document.createElement("hr"));
     }
-    document.querySelector("#browsealbums").innerHTML = albumList;
     tuneRadios("browsealbums", "album-select", albumSelected);
 }
 
@@ -335,17 +343,23 @@ function trackBrowse(album) {
     const showAs = playlist.albums[album]?.notes?.caption;
     let trackList = (showAs) ? showAs : playlist.albums[album]?.title;
     trackList += "<hr/>";
+    const containTrk = document.querySelector("#browsetracks");
     let i = 0;
     playlist.albums[album]?.tracks.forEach((t) => {
-        trackList += "<button class='btn-htkaction' value='" + album + "::" + i + "'>"
-            + ((t?.name) ? t.name : t.track)
-            + "</button>";
+        let buttonTrk = document.createElement("button");
+        buttonTrk.textContent = ((t?.name) ? t.name : t.track);
+        buttonTrk.className = 'btn-htkaction';
+        buttonTrk.value = album + "::" + i;
+        buttonTrk.addEventListener("dblclick", browseOK);
+        if (i == 0) {
+            containTrk.innerHTML = trackList;
+        }
+        containTrk.appendChild(buttonTrk);
         i++;
     });
     if (i > 0) {
-        trackList += "<hr/>";
+        containTrk.appendChild(document.createElement("hr"));
     }
-    document.querySelector("#browsetracks").innerHTML = trackList;
     tuneRadios("browsetracks", "track-select", trackSelected);
 }
 
